@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 ]
 
 EXTERNAL_APPS = [
-    'user_authentication',
     'blog',
 ]
 
