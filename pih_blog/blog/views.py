@@ -5,13 +5,29 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
+from django.views.generic import ListView, DetailView, CreateView  #used for post display
+
 
 # Create your views here.
-def home(request):
-    context = {
-        'posts': Post.objects.all()     #  <-----The query is here
-    }
-    return render(request, 'blog/home.html', context)
+# def home(request):
+#     context = {
+#         'posts': Post.objects.all()     #  <-----The query is here
+#     }
+#     return render(request, 'blog/home.html', context)
+
+#class based views
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/home.html'    #<app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']   #orders the posts from oldest to newest, but if '-' then newest to oldest
+
+class PostDetailView(DetailView):
+    model = Post
+
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'content']
 
 
 def about(request):
@@ -53,7 +69,9 @@ def signup(request):
         myuser.last_name = last_name
         myuser.save()
         messages.success(request, "Your Account has been created succesfully!!")
+        
         return redirect('signin')
+        
         
     return render(request, "blog/signup.html")
 
