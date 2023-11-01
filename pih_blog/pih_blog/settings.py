@@ -137,5 +137,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# Indicates the url after successful login
+# Indicates the url after successful login (login button click)
 LOGIN_REDIRECT_URL = 'blog-home'
+
+# for the decorator login_required
+LOGIN_URL = 'login'

@@ -20,6 +20,7 @@ from user_authentication import views as user_authentication_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user_profile/', user_authentication_views.user_profile, name='user_profile'),
     path('register/', user_authentication_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='user_authentication/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='user_authentication/logout.html'), name='logout'),
