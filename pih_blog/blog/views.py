@@ -53,9 +53,7 @@ def signup(request):
         myuser.last_name = last_name
         myuser.save()
         messages.success(request, "Your Account has been created succesfully!!")
-        
         return redirect('signin')
-        
         
     return render(request, "blog/signup.html")
 
