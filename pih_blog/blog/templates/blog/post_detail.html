@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
+
 	<article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
@@ -7,13 +9,131 @@
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
         {% if object.author == user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-2" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-2" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-2" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-danger btn-sm mt-1 mb-2" href="{% url 'post-delete' object.id %}">Delete</a>
           </div>
         {% endif%}
       </div>
       <h2 class="article-title">{{ object.title }}</h2>
-      <p class="article-content">{{ object.content }}</p>
+      <p class="article-content">{{ object.content|linebreaksbr }}</p>
+      <form method="post" action="{% url 'like' post.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link col" >
+            {% if request.user in post.likes.all %}
+              <button class="btn btn-danger">
+                Unlike
+              </button>
+            {% else %}
+              <button class="btn btn-success">
+                Like
+              </button>
+            {% endif %}
+        </button>
+      </form>
+      <hr>
+      <!-- Display the comments -->
+    <div class="comments">
+      <h3><strong><u>Comments</u></strong></h3>
+      <hr>
+      <ul>
+          {% for comment in comments %}
+              <li>
+                  <p><i>User: </i><strong>{{ comment.user }}</strong></p>
+                  <br>
+                  <p><i>Comment: </i>{{ comment.text }}</p>
+              </li>
+              <br>
+          {% endfor %}
+      </ul>
+    </div>
+
+  <!-- Comment form -->
+    <div class="comment-form">
+        <h3><strong><u>Add a Comment</u></strong></h3>
+        <hr>
+        <form method="POST" action="{% url 'post-detail' pk=post.pk %}">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
+      </div>
     </div>
   </article>
+  
+  <style>
+    .comments {
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .comments h3 {
+        font-size: 1.2em;
+        margin: 0;
+    }
+
+    .comments hr {
+        margin: 10px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    .comments ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .comments li {
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .comments li strong {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .comments li p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    /* Style the Comment Form */
+    .comment-form {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .comment-form h3 {
+        font-size: 1.2em;
+        margin: 0;
+    }
+
+    .comment-form form {
+        margin-top: 10px;
+    }
+
+    .comment-form button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .comment-form button:hover {
+        background-color: #0056b3;
+    }
+  </style>
+
+  
 {% endblock content %}

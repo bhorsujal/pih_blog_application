@@ -1,0 +1,95 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<style>
+    .border-subtle {
+      border: 1px solid #c38eb4;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .border-subtle:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+      opacity: 88%;
+    }
+
+    .card:hover {
+      background-color: #ebf2f3;
+      transition: transform 0.3s;
+    }
+    
+    .border:hover .card-footer {
+      opacity: 1;
+    }
+
+    .icon-container {
+      width: 50px; 
+      height: 50px; 
+      overflow: hidden; /* Hide overflowing content (for circular shape) */
+      border-radius: 50%; /* Make the container circular */
+      border: 2px solid #ccc; /* Optional: Add a border to the circular icon */
+    }
+
+    .circular-icon {
+        width: 100%; /* Make sure the image takes up 100% of the circular container */
+        height: auto; /* Maintain the aspect ratio of the image */
+        border-radius: 50%; /* Make the image is circular */
+    }
+</style>
+
+  <h1>Search Results</h1>
+  <hr>
+  
+  <!-- <div class="row">
+    {% for post in results %}
+      <div class="col-md-15 mb-4">
+        <div class="media content-section">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content|safe|truncatewords:50 }}</p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No results found.</p>
+    {% endfor %}
+  </div> -->
+
+  <div class="row g-4">
+    {% for post in results %}
+    <div class="col-md-6 g-3 mb-4" style="width: auto;">
+      <div class="card border-subtle h-100 mt-3 mb-3 shadow" style="border-color: #c38eb4;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <a class="card-title lead text-dark" href="{% url 'post-detail' post.id %}">
+            <div class="icon-container"><img class="circular-icon" src="{{ post.author.profile.image.url }}"></div>
+            {{ post.title }}
+          </a>
+          <figcaption class="blockquote-footer text-body-secondary text-right"> <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></figcaption>
+          <p class="card-text mt-3">{{ post.content|truncatewords:50 }}</p>
+          <div class="like-align">
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between" style="background-color: #cddee5; opacity: 0.7;">
+          <small class="text-body-secondary">{{ post.date_posted|date:"F d, Y" }}</small>
+          <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
+        </div>
+      </div>
+    </div>
+      {% if forloop.counter|divisibleby:2 and not forloop.last %}
+        </div><div class="row g-4">
+      {% endif %}
+      {% empty %}
+      <p>No results found.</p>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
