@@ -1,4 +1,62 @@
-{% extends "blog/base.html" %}
+{% extends 'blog/base.html' %}
+{% load static %}
 {% block content %}
-	<h1>About page</h1>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        width: 180px;
+        padding: 20px;
+        height: 400px;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card h2 {
+        color: #333;
+    }
+
+    .social-icons {
+        margin-top: 20px;
+    }
+
+    .social-icons a {
+        text-decoration: none;
+        color: #020202;
+        margin: 0 10px;
+        font-size: 24px;
+    }
+
+    .card img {
+        max-height:60%;
+        max-width: 100%;
+        border-radius: 5%;
+    }
+
+</style>
+
+    <div class="col-md-6 g-3 mb-4" style="width: auto;">
+        <div class="card shadow" style="border-color: #c38eb4;">
+            <img src="Sujal.jpg" alt="Sujal Bhor">
+        <h2>Sujal Bhor</h2>
+        <p>Role: Developer</p>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/bhorsujal5/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/sujal-bhor-7986b2252/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/person1" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+        </div>
+      </div>
+
 {% endblock content %}

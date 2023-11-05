@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +9,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    <style>
+      body {
+          background-color: #fef8ff; /* Change the background color here */
+          background-image: url('/media/background.png');
+          /* background-size: auto;  */
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+      }
+
+      .side-bar {
+        padding: auto;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+      
+      .content-section {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-color: #c38eb4;
+        opacity: 88%;
+      }
+      
+      /* :hover {
+        background-color: #ebf2f3;
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      } */
+
+      .list-group-item {
+        border-color: #c38eb4;
+        
+      }
+
+      .list-group-item:hover {
+        background-color: #ebf2f3;
+        transition: transform 0.3s;
+        cursor: pointer;
+      }
+      hr {
+        height: 1px;
+        color: #123455;
+        background-color: #123455;
+        border: none;
+      }
+  </style>
 
     {% if title %}
         <title>Django Blog - {{ title }}</title>
@@ -20,19 +76,27 @@
 </head>
 <body>
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #48908e;">  <!--#57707a  48908e-->
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <a class="navbar-brand mr-15" href="{% url 'blog-home' %}"> <img src="/media/cherries.png" width=35px height="35" class="d-inline-block text-left align-text-top mr-2">Django Blog</a> 
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span> -->
           </button>
+          
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
-              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+              <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
+              <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About</a>
             </div>
             <!-- Navbar Right Side -->
-            <div class="navbar-nav">
+            <div class="navbar-nav d-flex align-baseline">
+              <!-- <form class="d-flex" role="search"> -->
+              <form method="get" action="{% url 'search' %}" class="search-form">
+                <input type="text" name="query" type="search" placeholder="Search" aria-label="Search">
+                <!-- <button class="btn  mr-4" type="submit"><p class="text-white">Search</p></button> -->
+              </form>
+            </div>
+            <div class="navbar-nav d-flex align-baseline">     
               {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
                 <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
@@ -54,23 +118,39 @@
               <div class="alert alert-{{ message.tags }}">
                 {{ message }}
               </div>
-            {% endfor %}
+            {%endfor%}
           {% endif %}
+          <br>
+          <br>
+          <br>
+          <br>
           {% block content %}{% endblock %}
         </div>
         <div class="col-md-4">
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="content-section" style="opacity: 88%;">
+            <h3>Glance</h3>
+            <p class='text-muted'>Your interests, the way you like!
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
+                <li class="list-group-item list-group-item-light dropdown">
+                  <button class="btn  dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%; text-align: justify;">
+                    Sort by date posted
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-light">
+                    <li><a class="dropdown-item" href="?sort_by=newest">Newest first</a></li>
+                    <li><a class="dropdown-item" href="?sort_by=oldest">Oldest first</a></li>
+                  </ul>
+                </li>
+                <li class="list-group-item list-group-item-light text-muted" style="text-align: justify;"><a class="text-muted col" href="?sort_by=likes">Sort by Likes</a></li>
+                <li class="list-group-item list-group-item-light text-muted"><a class="text-muted col" href="?sort_by=title" style="text-align: justify;">Sort Alphabetically</a></li>
               </ul>
             </p>
           </div>
         </div>
+      
       </div>
     </main>
 
@@ -78,6 +158,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
