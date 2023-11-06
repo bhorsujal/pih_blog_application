@@ -53,6 +53,9 @@ class PostListView(ListView):
             user = self.request.user
             context['liked_posts'] = self.request.user.liked_posts.all()
 
+        most_liked_post = Post.objects.annotate(like_count=Count('likes')).order_by('-like_count').first()
+
+        context['most_liked_post'] = most_liked_post
         context['categories'] = categories  # Pass categories to the context
         context['active_category'] = self.kwargs.get('category_id', None)  # Add this line
 
