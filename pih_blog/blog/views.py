@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect , get_object_or_404
 # from django.http import HttpResponse
-from .models import Post, Comment    
+from .models import Category, Post, Comment    
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -14,10 +14,11 @@ from django.views.generic import(   ListView,           #used for post display o
                                     UpdateView,         #update posts
                                     DeleteView          #delete posts
                                 ) 
-from .forms import SearchForm, CommentForm
+from .forms import  CommentForm, PostForm
 from django.views import View
 from django.http import HttpResponseBadRequest
-
+from django.db.models import Count
+from .forms import SearchForm
 
 # Create your views here.
 # def home(request):
@@ -30,13 +31,17 @@ from django.http import HttpResponseBadRequest
 
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/home.html'    #<app>/<model>_<viewtype>.html
+    template_name = 'blog/home.html'
     context_object_name = 'posts'
-    ordering = ['-date_posted']   #orders the posts from oldest to newest, but if '-' then newest to oldest
-    paginate_by = 8
+    ordering = ['-date_posted']
+    # paginate_by = 8
 
     def get_context_data(self, **kwargs):
-        context =super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+
+        # Fetch all categories and annotate the count of posts in each category
+        categories = Category.objects.annotate(post_count=Count('post'))
+
         if not self.object_list:
             context['posts'] = []
 
@@ -46,22 +51,41 @@ class PostListView(ListView):
 
         if self.request.user.is_authenticated:
             user = self.request.user
-            context['liked_posts'] = self.request,user.liked_posts.all()
+            context['liked_posts'] = self.request.user.liked_posts.all()
+
+        context['categories'] = categories  # Pass categories to the context
+        context['active_category'] = self.kwargs.get('category_id', None)  # Add this line
+
         return context
-
-
-
 
     def get_queryset(self):
         sort_by = self.request.GET.get('sort_by','newest')
         if sort_by == 'title':
             return Post.objects.order_by('title')
         elif sort_by == 'likes' :
-            return Post.objects.order_by('-likes')
+            return Post.objects.annotate(like_count=Count('likes')).order_by('-like_count')
         elif sort_by == 'newest':
             return Post.objects.order_by('-date_posted')
         elif sort_by == 'oldest':
             return Post.objects.order_by('date_posted')
+
+
+class PostsByCategoryView(PostListView):
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')
+        sort_by = self.request.GET.get('sort_by', 'newest')
+        queryset = Post.objects.filter(category__id=category_id)
+
+        if sort_by == 'title':
+            queryset = queryset.order_by('title')
+        elif sort_by == 'likes':
+            queryset = queryset.annotate(like_count=Count('likes')).order_by('-like_count', '-date_posted')
+        elif sort_by == 'newest':
+            queryset = queryset.order_by('-date_posted')
+        elif sort_by == 'oldest':
+            queryset = queryset.order_by('date_posted')
+
+        return queryset
 
 
 class LikeView(LoginRequiredMixin,View):
@@ -79,7 +103,7 @@ class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    paginate_by = 6
+    # paginate_by = 6
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -109,8 +133,8 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'category']
-    template_name = 'blog/post_form.html'  # You should have a custom template for creating a post
+    fields = ['title', 'content', 'category', 'image']
+    # template_name = 'blog/post_form.html'  # You should have a custom template for creating a post
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -138,7 +162,7 @@ class SearchView(View):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'category']
+    fields = ['title', 'content', 'category', 'image']
 
     def form_valid(self, form):             #returns the author to the post on new post
         form.instance.author = self.request.user

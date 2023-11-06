@@ -5,7 +5,7 @@
   <p class="h1">
     {{ view.kwargs.username }}
   </p>
-  <h3 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
+  <h3 class="mb-3">Posts by {{ view.kwargs.username }} </h3>
   <hr> 
   <!-- {% for post in posts %}
     <article class="media content-section">
@@ -72,24 +72,43 @@
 
   <div class="row g-4">
     {% for post in posts %}
-      <div class="col-md-6 g-3 mb-4" style="width: auto;">
+      <div class="col-md-12 g-3 mb-4" style="width: auto;">
         <div class="card border-subtle h-100 mt-3 mb-3 shadow" style="border-color: #c38eb4;">
-          <!-- <img src="..." class="card-img-top" alt="..."> -->
           <div class="card-body">
             <a class="card-title lead text-dark" href="{% url 'post-detail' post.id %}">
-              <div class="icon-container"><img class="circular-icon" src="{{ post.author.profile.image.url }}"></div>
-              {{ post.title }}
+              <div class="d-flex align-items-center"> 
+                <div class="flex-grow-1">
+                  {{ post.title }}
+
             </a>
-            <figcaption class="blockquote-footer text-body-secondary text-right"> <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></figcaption>
+            <hr>
+            <br>
+            <figcaption class="blockquote-footer text-body-secondary text-right" style="display: flex; justify-content: left; align-items: left;"> 
+              <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+            </figcaption>
             <p class="card-text mt-3">{{ post.content|truncatewords:50 }}</p>
-          </div>
-          <div class="card-footer " style="background-color: #cddee5; opacity: 0.7;">
-            <small class="text-body-secondary">{{ post.date_posted|date:"F d, Y" }}</small>
+          <div class="like-align">
           </div>
         </div>
+        <div class="rectangular-icon-container ml-3"> <!-- Add margin to the image container -->
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 200px; max-height: 220px;"> <!-- Adjust the max-width and max-height as needed -->
+        </div>
       </div>
-    {% endfor %}
+    </a>
   </div>
+  <div class="card-footer d-flex justify-content-between" style="background-color: #cddee5; opacity: 0.7;">
+    <span class="badge badge-secondary ml-2">{{ post.category }}</span> <!-- Add the category tag -->
+    <small class="text-body-secondary">{{ post.date_posted|date:"F d, Y" }}</small>
+    <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
+  </div>
+</div>
+</div>
+{% if forloop.counter|divisibleby:2 and not forloop.last %}
+</div>
+<div class="row g-4">
+{% endif %}
+{% endfor %}
+</div>
   
 
   {% if is_paginated %}
