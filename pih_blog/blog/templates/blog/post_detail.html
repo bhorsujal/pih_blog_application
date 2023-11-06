@@ -1,139 +1,354 @@
-{% extends "blog/base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
 
-	<article class="media content-section">
-    <div class="media-body">
-      <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
-        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-        {% if object.author == user %}
-          <div>
-            <a class="btn btn-outline-secondary btn-sm mt-1 mb-2" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-outline-danger btn-sm mt-1 mb-2" href="{% url 'post-delete' object.id %}">Delete</a>
-          </div>
-        {% endif%}
-      </div>
-      <h2 class="article-title">{{ object.title }}</h2>
-      <p class="article-content">{{ object.content|linebreaksbr }}</p>
-      <form method="post" action="{% url 'like' post.pk %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-link col" >
-            {% if request.user in post.likes.all %}
-              <button class="btn btn-danger">
-                Unlike
-              </button>
-            {% else %}
-              <button class="btn btn-success">
-                Like
-              </button>
-            {% endif %}
-        </button>
-      </form>
-      <hr>
-      <!-- Display the comments -->
-    <div class="comments">
-      <h3><strong><u>Comments</u></strong></h3>
-      <hr>
-      <ul>
-          {% for comment in comments %}
-              <li>
-                  <p><i>User: </i><strong>{{ comment.user }}</strong></p>
-                  <br>
-                  <p><i>Comment: </i>{{ comment.text }}</p>
-              </li>
-              <br>
-          {% endfor %}
-      </ul>
-    </div>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Comment form -->
-    <div class="comment-form">
-        <h3><strong><u>Add a Comment</u></strong></h3>
-        <hr>
-        <form method="POST" action="{% url 'post-detail' pk=post.pk %}">
-            {% csrf_token %}
-            {{ comment_form|crispy }}
-            <button type="submit" class="btn btn-primary">Submit Comment</button>
-        </form>
-      </div>
-    </div>
-  </article>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    <style>
+      body {
+          background-color: #fef8ff; /* Change the background color here */
+          background-image: url('/media/background.png');
+          /* background-size: auto;  */
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+      }
+
+      .side-bar {
+        padding: auto;
+      }
+
+      .article-content{
+        font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+      max-width: none; /* Remove the max-width restriction */
+      margin: 0 auto; /* Center the content horizontally */
+      padding: 20px; /* Add padding for spacing */
   
-  <style>
-    .comments {
-        background-color: #f8f8f8;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        margin-top: 20px;
-    }
+      }
+      .article-content img {  
+        max-width: 100%;
+        height: auto;
+      }
 
-    .comments h3 {
-        font-size: 1.2em;
-        margin: 0;
-    }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
 
-    .comments hr {
-        margin: 10px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
+      .custom-container {
+        max-width: 1200px; /* Adjust the max-width as needed */
+      }
 
-    .comments ul {
-        list-style: none;
-        padding: 0;
-    }
+      .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+      
+      .content-section {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-color: #c38eb4;
+        opacity: 88%;
+      }
+      .content-section{
+        margin-left:auto;
+        max-width: 800px;
+        margin-right: auto;
+      }
+      
+      .image-container {
+        position: relative;
+        display: inline-block;
+        padding: 5px; /* Adjust padding as needed */
+        border: 2px solid #000; /* Border color and thickness */
+      }
+      /* :hover {
+        background-color: #ebf2f3;
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      } */
 
-    .comments li {
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: #fff;
-    }
+      .list-group-item {
+        border-color: #c38eb4;
+        
+      }
 
-    .comments li strong {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .comments li p {
-        margin: 5px 0;
-        color: #555;
-    }
-
-    /* Style the Comment Form */
-    .comment-form {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f8f8f8;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .comment-form h3 {
-        font-size: 1.2em;
-        margin: 0;
-    }
-
-    .comment-form form {
-        margin-top: 10px;
-    }
-
-    .comment-form button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
+      .list-group-item:hover {
+        background-color: #ebf2f3;
+        transition: transform 0.3s;
         cursor: pointer;
-    }
-
-    .comment-form button:hover {
-        background-color: #0056b3;
-    }
+      }
+      hr {
+        height: 1px;
+        color: #123455;
+        background-color: #123455;
+        border: none;
+      }
   </style>
 
-  
-{% endblock content %}
+    {% if title %}
+        <title>Django Blog - {{ title }}</title>
+    {% else %}
+        <title>Django Blog</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #48908e;">  <!--#57707a  48908e-->
+        <div class="container">
+          <a class="navbar-brand mr-15" href="{% url 'blog-home' %}"> <img src="/media/cherries.png" width=35px height="35" class="d-inline-block text-left align-text-top mr-2">Django Blog</a> 
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span> -->
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
+              <div class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-item nav-link lead" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category-posts' category.id %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+              </div>
+              <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav d-flex align-baseline">
+              <!-- <form class="d-flex" role="search"> -->
+              <form method="get" action="{% url 'search' %}" class="search-form">
+                <input type="text" name="query" type="search" placeholder="Search" aria-label="Search">
+              </form>
+            </div>
+            <div class="navbar-nav d-flex align-baseline">     
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
+                <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container custom-container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {%endfor%}
+          {% endif %}
+          <br>
+          <br>
+          <br>
+          <br>
+          <style>
+            /* Container for the blog post title and content */
+            .post-content {
+                background-color: #f8f8f8;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin-top: 20px;
+            }
+            
+            /* Blog post title */
+            .article-title {
+                font-size: 28px; /* Adjust the font size as desired */
+                color: #333; /* Adjust the color as desired */
+                font-weight: bold;
+            }
+            
+            /* Blog post content */
+            .article-content {
+                font-size: 18px; /* Adjust the font size as desired */
+                line-height: 1.6;
+                color: #555; /* Adjust the color as desired */
+            }
+            
+            /* Horizontal rule beneath the blog post title and content */
+            .post-content hr {
+                margin: 20px 0;
+                border: 0;
+                border-top: 1px solid #ccc;
+            }
+
+            </style>
+            <div class="box">
+              <article class="media content-section">
+                <div class="media-body">
+                  <h2 class="article-title">{{ object.title }}</h2>
+                  <div class="article-metadata">
+                    <img class="rounded-circle account-img " src="{{ post.author.profile.image.url }}" style="max-width: 30px; max-height: 30px;" alt="qwert">
+                    <a class="mr-2" href="{% url 'user-posts' object.author.username %}"><i>{{ object.author }}</i></a>
+                    <br>
+                    <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                    <br>
+                    <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
+                    {% if object.author == user %}
+                      <div>
+                        <a class="btn btn-outline-secondary btn-sm mt-1 mb-2" href="{% url 'post-update' object.id %}">Update</a>
+                        <a class="btn btn-outline-danger btn-sm mt-1 mb-2" href="{% url 'post-delete' object.id %}">Delete</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                  
+                  <div style="display: flex; justify-content: center; align-items: center;">
+                    <div class="image-container">
+                      <img class="img-fluid" src="{{ object.image.url }}" alt="{{ object.title }} Image">
+                    </div>
+                  </div>
+                  <p class="article-content">{{ object.content|linebreaksbr }}</p>
+                  <form method="post" action="{% url 'like' post.pk %}">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-link col">
+                            {% if request.user in post.likes.all %}
+                                <button class="btn btn-danger" style="margin-top: -10px;"> <!-- Adjust the margin-top value as needed -->
+                                    Unlike
+                                </button>
+                            {% else %}
+                                <button class="btn btn-success" style="margin-top: -10px;"> <!-- Adjust the margin-top value as needed -->
+                                    Like
+                                </button>
+                            {% endif %}
+                        </button>
+                    </div>
+                    <hr>
+                  </form>
+              </article>
+                  <!-- Display the comments -->
+                <div class="comments">
+                  <h3><strong><u>Comments</u></strong></h3>
+                  <hr>
+                  <ul>
+                      {% for comment in comments %}
+                          <li>
+                              <p><i>User: </i><strong>{{ comment.user }}</strong></p>
+                              <br>
+                              <p><i>Comment: </i>{{ comment.text }}</p>
+                          </li>
+                          <br>
+                      {% endfor %}
+                  </ul>
+                </div>
+            
+              <!-- Comment form -->
+                <div class="comment-form">
+                    <h3><strong><u>Add a Comment</u></strong></h3>
+                    <hr>
+                    <form method="POST" action="{% url 'post-detail' pk=post.pk %}">
+                        {% csrf_token %}
+                        {{ comment_form|crispy }}
+                        <button type="submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                  </div>
+                </div>
+              
+              <style>
+                .comments {
+                    background-color: #f8f8f8;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin-top: 20px;
+                }
+            
+                .comments h3 {
+                    font-size: 1.2em;
+                    margin: 0;
+                }
+            
+                .comments hr {
+                    margin: 10px 0;
+                    border: 0;
+                    border-top: 1px solid #ccc;
+                }
+            
+                .comments ul {
+                    list-style: none;
+                    padding: 0;
+                }
+            
+                .comments li {
+                    margin: 10px 0;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 10px;
+                    background-color: #fff;
+                }
+            
+                .comments li strong {
+                    font-weight: bold;
+                    color: #333;
+                }
+            
+                .comments li p {
+                    margin: 5px 0;
+                    color: #555;
+                }
+            
+                /* Style the Comment Form */
+                .comment-form {
+                    margin-top: 20px;
+                    padding: 10px;
+                    background-color: #f8f8f8;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+            
+                .comment-form h3 {
+                    font-size: 1.2em;
+                    margin: 0;
+                }
+            
+                .comment-form form {
+                    margin-top: 10px;
+                }
+            
+                .comment-form button {
+                    background-color: #007bff;
+                    color: #fff;
+                    border: none;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            
+                .comment-form button:hover {
+                    background-color: #0056b3;
+                }
+              </style>            
+        </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

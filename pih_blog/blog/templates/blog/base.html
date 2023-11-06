@@ -53,7 +53,21 @@
       .list-group-item {
         border-color: #c38eb4;
         
+      
       }
+      .fixed-sidebar {
+        position: fixed;
+        top: 2; /* Adjust the top position as needed */
+        right:250px; /* Adjust the left position as needed */
+        width: 300px; /* Adjust the width as needed */
+        height: 100%; /* Make it full height */
+        /* background-color: white; Background color for the sidebar */
+        padding: 20px; /* Adjust padding as needed */
+        overflow: auto; /* Add scrollability if content exceeds the height */
+        z-index: 1; /* Ensure it's above other content */
+      }
+
+
 
       .list-group-item:hover {
         background-color: #ebf2f3;
@@ -86,6 +100,18 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
+              <div class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-item nav-link lead" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category-posts' category.id %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+              </div>
               <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About</a>
             </div>
             <!-- Navbar Right Side -->
@@ -131,27 +157,38 @@
           <br>
           <br>
           <br>
-          <div class="content-section" style="opacity: 88%;">
-            <h3>Glance</h3>
-            <p class='text-muted'>Your interests, the way you like!
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light dropdown">
-                  <button class="btn  dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%; text-align: justify;">
-                    Sort by date posted
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-light">
-                    <li><a class="dropdown-item" href="?sort_by=newest">Newest first</a></li>
-                    <li><a class="dropdown-item" href="?sort_by=oldest">Oldest first</a></li>
-                  </ul>
-                </li>
-                <li class="list-group-item list-group-item-light text-muted" style="text-align: justify;"><a class="text-muted col" href="?sort_by=likes">Sort by Likes</a></li>
-                <li class="list-group-item list-group-item-light text-muted"><a class="text-muted col" href="?sort_by=title" style="text-align: justify;">Sort Alphabetically</a></li>
-              </ul>
-            </p>
-          </div>
-        </div>
+          <div class="fixed-sidebar">
+            <div class="content-section" style="opacity: 88%;">
+              <h3>Glance</h3>
+              <p class='text-muted'>Your interests, the way you like!
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light dropdown">
+                    <button class="btn  dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%; text-align: justify;">
+                      Sort by date posted
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-light">
+                      <li><a class="dropdown-item" href="?sort_by=newest">Newest first</a></li>
+                      <li><a class="dropdown-item" href="?sort_by=oldest">Oldest first</a></li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item list-group-item-light text-muted" style="text-align: justify;"><a class="text-muted col" href="?sort_by=likes">Sort by Likes</a></li>
+                  <li class="list-group-item list-group-item-light text-muted"><a class="text-muted col" href="?sort_by=title" style="text-align: justify;">Sort Alphabetically</a></li>
+                </ul>
+              </p>
+            </div>
+            <div class="content-section" style="opacity: 88%;">
+              <h3>Categories</h3>
+              <p class='text-muted'>Discover more of what matters to you
+                  <ul class="list-group">
+                      {% for category in categories %}
+                          <li class="list-group-item list-group-item-light text-muted" style="text-align: justify">
+                              <a class="text-muted col" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
+                          </li>
+                      {% endfor %}
+                    </div>
+            </div>
+                
       
-      </div>
     </main>
 
     <!-- Optional JavaScript -->

@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h1>Posts in {{ active_category.name }}</h1>
+    <hr>
+    {% for post in posts %}
+        <div class="content-section">
+            <article class="media content-section">
+                <!-- Post content and details here -->
+            </article>
+        </div>
+    {% empty %}
+        <p>No posts in this category yet.</p>
+    {% endfor %}
+{% endblock content %}

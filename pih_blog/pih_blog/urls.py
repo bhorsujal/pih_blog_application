@@ -20,6 +20,9 @@ from user_authentication import views as user_authentication_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = 'PIH Blog Application'
+admin.site.index_title = 'PISB'
+admin.site.site_title = 'OP'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
