@@ -5,10 +5,12 @@
 1. Clone the Repository in your local machine.
 2. Open the terminal (make sure you have ***Django*** installed in your virtual environment and running)
 3. Switch to the project directory containing ***manage.py*** in the cloned repository
-4. Make sure you have crispy forms pip-installed, follow below commands to install if not already:
+4. Make sure you have crispy-forms and Pillow pip-installed, follow below commands to install if not already:
    > pip install django-crispy-forms
    
    > pip install crispy-bootstrap5
+   
+   > pip install Pillow
 6. Execute the following commands:
    > python manage.py makemigrations
    
