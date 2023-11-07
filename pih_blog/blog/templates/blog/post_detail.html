@@ -112,13 +112,10 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #a865b5;">  <!--#57707a  48908e-->
         <div class="container">
-                    <div class="d-flex align-items-center">
-            <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
-              <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
-              <span class="d-inline-block text-left align-text-top" style="font-size: 23px;" >Cherry</span>
-            </a>
-          </div>
-
+          <a class="navbar-brand mr-15" href="{% url 'blog-home' %}"> <img src="/media/cherries.png" width=35px height="35" class="d-inline-block text-left align-text-top mr-2">Cherry</a> 
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span> -->
+          </button>
           
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
@@ -258,6 +255,8 @@
                   <ul>
                       {% for comment in comments %}
                           <li>
+                              <p><i><u><b>User:</b></u></i> {{ post.author.username }}</p>
+                              <br>
                               <p><i><u><b>Comment:</b></u></i> {{ comment.text }}</p>
                           </li>
                           <br>

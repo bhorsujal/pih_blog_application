@@ -76,6 +76,8 @@
       <div class="col-md-12 g-3 mb-4" style="width: auto;">
         <div class="card border-subtle h-100 mt-3 mb-3 shadow" style="border-color: #c38eb4;">
           <div class="card-body">
+            <img class="rounded-circle account-img" src="{{ post.author.profile.image.url }}" style="max-width: 25px; max-height: 25px;" alt="qwert">
+
             <a class="card-title lead text-dark" href="{% url 'post-detail' post.id %}">
               <div class="d-flex align-items-center"> 
                 <div class="flex-grow-1">

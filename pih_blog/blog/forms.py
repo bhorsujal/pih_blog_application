@@ -1,10 +1,8 @@
 from django import forms
 from .models import Comment, Post
 
-
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Search'}))
-
+    query = forms.CharField(max_length=255, required=False)
 
 class CommentForm(forms.ModelForm):
     class Meta:

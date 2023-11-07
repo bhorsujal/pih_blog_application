@@ -44,17 +44,6 @@
         margin: 0 auto; 
       }
 
-      #category-section {
-    position: relative; /* Initial position */
-    width : 100%
-      }
-
-#category-section.fixed {
-    position: fixed;
-    top: 100px;
-    transition: top 0.3s;
-}
-
       .side-bar {
         padding: auto;
         margin: 0 auto;
@@ -137,12 +126,10 @@
     <header class="site-header mb-5">
       <nav class="navbar animate navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #a865b5;">
         <div class="container">
-          <div class="d-flex align-items-center">
             <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
-              <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
-              <span class="d-inline-block text-left align-text-top" style="font-size: 23px;" >Cherry</span>
+                <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
+                Cherry
             </a>
-          </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -164,11 +151,10 @@
                     <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
                 </div>
                 <div class="navbar-nav d-flex align-baseline">
-                  <form method="get" action="{% url 'search' %}">
-                    <input type="text" name="query" class="form-control" placeholder="Search">
-                </form>
-                
-                  
+                    <form method="get" action="{% url 'search' %}" class="form-inline my-2 my-lg-0">
+                        <input  name="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+
+                    </form>
                 </div>
                 <div class="navbar-nav d-flex align-baseline">
                     {% if user.is_authenticated %}
@@ -198,7 +184,6 @@
                 </div>
                 <div class="col-md-6 typing-text">
                     <h1 class="display-4">{{ most_liked_post.title }}</h1>
-                    <p><i>(Most Liked)</i></p>
                     <p class="lead my-3">{{ most_liked_post.content|truncatewords:15 }}</p>
                     <p class="lead mb-0">
                         <a href="{% url 'post-detail' most_liked_post.id %}" class="text-body-emphasis fw-bold" style="color: #000000;">Continue reading...</a>
@@ -241,59 +226,22 @@
                 </ul>
               </p>
             </div>
-            <div id="category-section">
             <div class="content-section" style="opacity: 88%;">
-                <h3>Categories</h3>
-                <p class='text-muted'>Discover more of what matters to you
-                    <ul class="list-group">
-                        {% for category in categories %}
-                            <li class="list-group-item list-group-item-light text-muted" style="text-align: justify">
-                                <a class="text-muted col" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
-                            </li>
-                        {% endfor %}
-              </div>
-
-              </div>  
+              <h3>Categories</h3>
+              <p class='text-muted'>Discover more of what matters to you
+                  <ul class="list-group">
+                      {% for category in categories %}
+                          <li class="list-group-item list-group-item-light text-muted" style="text-align: justify">
+                              <a class="text-muted col" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
+                          </li>
+                      {% endfor %}
+                    </div>
             </div>
                 
       
     </main>
 
     <!-- Optional JavaScript -->
-    <script>
-      // Get the category section element
-      var categorySection = document.getElementById("category-section");
-      var glanceSection = document.querySelector(".content-section:first-child"); // Assuming it's the first child
-  
-      // Function to check the scroll position and apply the fixed class
-      function checkScroll() {
-          var glanceSectionRect = glanceSection.getBoundingClientRect();
-          var categorySectionRect = categorySection.getBoundingClientRect();
-          
-          var topOffset = 100; // Adjust this value as needed
-  
-          if (glanceSectionRect.bottom <= topOffset) {
-              categorySection.classList.add("fixed");
-              categorySection.style.top = topOffset + "px";
-              categorySection.style.width = categorySectionRect.width + "px"; // Set explicit width
-          } else {
-              categorySection.classList.remove("fixed");
-              categorySection.style.top = ""; // Reset top to allow normal document flow
-              categorySection.style.width = ""; // Reset width to its original state
-          }
-      }
-  
-      // Listen for the scroll event
-      window.addEventListener("scroll", checkScroll);
-  
-      // Initially, check the scroll position to apply the fixed class if needed
-      checkScroll();
-  </script>
-  
-  <!-- Optional JavaScript libraries, jQuery, Popper.js, and Bootstrap JS -->
-  
-  </body>
-  </html>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
