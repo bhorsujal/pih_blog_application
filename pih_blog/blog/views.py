@@ -16,9 +16,8 @@ from django.views.generic import(   ListView,           #used for post display o
                                 ) 
 from .forms import  CommentForm, PostForm
 from django.views import View
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest,HttpResponse
 from django.db.models import Count
-from .forms import SearchForm
 
 # Create your views here.
 # def home(request):
@@ -158,19 +157,16 @@ class SearchView(View):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data.get('query', '')
-            print("Search Query:", query)  # Add this line
 
             results = Post.objects.filter(title__icontains=query, content__icontains=query)
-            print("Search Results:", results)  # Add this line
         else:
             results = []
         context = {
-            'form': form,
-            'results': results,
+            'form' : form,
+            'results' : results,
         }
 
         return render(request, self.template_name, context)
-
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -203,17 +199,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'blog/about.html', { 'title' : 'About'})
 
+def search(request):
+    query = request.GET['query']
+    allPosts = Post.objects.filter(title__icontains=query)
+    params = {'allPosts': allPosts}
 
-def search_view(request):
-    form = SearchForm(request.GET)
-    query = form['query'].value()
-
-    # results = Post.objects.filter(title__icontains=query) | Post.objects.filter(content__icontains=query)
-    results = Post.objects.filter(title__icontains=query)
-
-    context = {
-        'search_form': form,
-        'results': results,
-    }
-
-    return render(request, 'blog/search_results.html', context)
+    return render(request, 'blog/search_results.html',params)
