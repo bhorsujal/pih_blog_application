@@ -133,7 +133,7 @@ class PostDetailView(DetailView):
             if form.is_valid():
                 comment = form.save(commit=False)
                 comment.post = post
-                # comment.user = self.request.user  # Assign the logged-in user to the comment
+                comment.user = self.request.user  # Assign the logged-in user to the comment
                 comment.save()
                 return redirect('post-detail', pk=post.pk)
         else:

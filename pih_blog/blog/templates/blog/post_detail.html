@@ -258,7 +258,8 @@
                   <ul>
                       {% for comment in comments %}
                           <li>
-                              <p><i><u><b>Comment:</b></u></i> {{ comment.text }}</p>
+                            <p><i><u><b>User:</b></u></i> {{ comment.user.username }}</p>
+                            <p><i><u><b>Comment:</b></u></i> {{ comment.text }}</p>
                           </li>
                           <br>
                       {% endfor %}
