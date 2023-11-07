@@ -28,6 +28,11 @@
         padding: auto;
       }
 
+      .center-content {
+        margin: 0 auto;
+        max-width: 800px; /* Adjust the max-width as needed */
+      }
+
       .article-content{
         font-size: 18px;
       line-height: 1.6;
@@ -98,19 +103,22 @@
   </style>
 
     {% if title %}
-        <title>Django Blog - {{ title }}</title>
+        <title>Cherry - {{ title }}</title>
     {% else %}
-        <title>Django Blog</title>
+        <title>Cherry</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #a865b5;">  <!--#57707a  48908e-->
         <div class="container">
-          <a class="navbar-brand mr-15" href="{% url 'blog-home' %}"> <img src="/media/cherries.png" width=35px height="35" class="d-inline-block text-left align-text-top mr-2">Cherry</a> 
-          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span> -->
-          </button>
+                    <div class="d-flex align-items-center">
+            <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
+              <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
+              <span class="d-inline-block text-left align-text-top" style="font-size: 23px;" >Cherry</span>
+            </a>
+          </div>
+
           
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
@@ -132,9 +140,9 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav d-flex align-baseline">
               <!-- <form class="d-flex" role="search"> -->
-              <form method="get" action="{% url 'search' %}" class="search-form">
-                <input type="text" name="query" type="search" placeholder="Search" aria-label="Search">
-              </form>
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
             </div>
             <div class="navbar-nav d-flex align-baseline">     
               {% if user.is_authenticated %}
@@ -152,7 +160,7 @@
     </header>
     <main role="main" class="container custom-container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 center-content">
           {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
@@ -200,13 +208,17 @@
               <article class="media content-section">
                 <div class="media-body">
                   <h2 class="article-title">{{ object.title }}</h2>
+                  <div class="d-flex align-items-center">
+                    <div class="mr-auto"> <!-- Add margin to separate the title and image -->
+                      <img class="rounded-circle account-img" src="{{ post.author.profile.image.url }}" style="max-width: 25px; max-height: 25px;" alt="qwert">
+                    </div>
+                  </div>
+                  <figcaption class="blockquote-footer text-body-secondary" style="display: flex; justify-content: left; align-items: left;">
+                    <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                  </figcaption>
                   <div class="article-metadata">
-                    <img class="rounded-circle account-img " src="{{ post.author.profile.image.url }}" style="max-width: 30px; max-height: 30px;" alt="qwert">
-                    <a class="mr-2" href="{% url 'user-posts' object.author.username %}"><i>{{ object.author }}</i></a>
-                    <br>
                     <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-                    <br>
-                    <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
+                    <small class="text-body-secondary" style="display: flex; font-size: small;">{{ post.likes.count }} Likes</small>
                     {% if object.author == user %}
                       <div>
                         <a class="btn btn-outline-secondary btn-sm mt-1 mb-2" href="{% url 'post-update' object.id %}">Update</a>
@@ -246,9 +258,7 @@
                   <ul>
                       {% for comment in comments %}
                           <li>
-                              <p><i>User: </i><strong>{{ comment.user }}</strong></p>
-                              <br>
-                              <p><i>Comment: </i>{{ comment.text }}</p>
+                              <p><i><u><b>Comment:</b></u></i> {{ comment.text }}</p>
                           </li>
                           <br>
                       {% endfor %}

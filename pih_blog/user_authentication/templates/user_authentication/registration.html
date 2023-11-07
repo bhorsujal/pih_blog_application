@@ -1,12 +1,21 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section mt-5">
+<br>
+<br>
+    <div class="content-section">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Register Now</legend>
                 {{ form|crispy }}
+
+                <!-- Display email field error -->
+                {% if form.email.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.email.errors.0 }}
+                    </div>
+                {% endif %}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Sign Up</button>

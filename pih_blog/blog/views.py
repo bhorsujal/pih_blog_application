@@ -126,12 +126,19 @@ class PostDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         post = self.get_object()
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            return redirect('post-detail', pk=post.pk)
+
+        # Check if the user is logged in before allowing comments
+        if self.request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = post
+                # comment.user = self.request.user  # Assign the logged-in user to the comment
+                comment.save()
+                return redirect('post-detail', pk=post.pk)
+        else:
+            # Handle the case where the user is not logged in
+            return redirect('login')
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -151,16 +158,19 @@ class SearchView(View):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data.get('query', '')
+            print("Search Query:", query)  # Add this line
 
             results = Post.objects.filter(title__icontains=query, content__icontains=query)
+            print("Search Results:", results)  # Add this line
         else:
             results = []
         context = {
-            'form' : form,
-            'results' : results,
+            'form': form,
+            'results': results,
         }
 
         return render(request, self.template_name, context)
+
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -193,3 +203,17 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'blog/about.html', { 'title' : 'About'})
 
+
+def search_view(request):
+    form = SearchForm(request.GET)
+    query = form['query'].value()
+
+    # results = Post.objects.filter(title__icontains=query) | Post.objects.filter(content__icontains=query)
+    results = Post.objects.filter(title__icontains=query)
+
+    context = {
+        'search_form': form,
+        'results': results,
+    }
+
+    return render(request, 'blog/search_results.html', context)

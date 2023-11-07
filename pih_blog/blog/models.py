@@ -31,8 +31,8 @@ class Post(models.Model):
 
 		img = Image.open(self.image.path)
 
-		if img.height > 350 or img.width > 350:
-			output_size = (350, 350)
+		if img.height > 780 or img.width > 460:
+			output_size = (780, 460)
 			img.thumbnail(output_size)
 			img.save(self.image.path)
 
@@ -47,6 +47,6 @@ class Like(models.Model):
 
 class Comment(models.Model):
 	post = models.ForeignKey('blog.Post', on_delete=models.CASCADE)
-	user = models.CharField(max_length=100)
+	# user = models.CharField(max_length=100)
 	text = models.TextField()
 	created_date = models.DateTimeField(default=timezone.now)

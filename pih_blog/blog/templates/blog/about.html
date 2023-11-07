@@ -30,7 +30,7 @@
             color: #020202;
             margin: 0 10px;
             font-size: 24px;
-        }
+        }	
 
         .card img {
             max-height:60%;
@@ -47,7 +47,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin: 10px;
-            width: 250px;
+            width: 280px;
             padding: 20px;
             height: 450px;
             text-align: center;
@@ -74,12 +74,12 @@
         opacity: 88%;
       }
       
-      /* :hover {
+      .card:hover {
         background-color: #ebf2f3;
         transform: translateY(-6px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s;
-      } */
+    }
 
       .list-group-item {
         border-color: #c38eb4;
@@ -105,34 +105,39 @@
     {% endif %}
 </head>
 <body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #48908e;">  <!--#57707a  48908e-->
-            <div class="container">
-              <a class="navbar-brand mr-15" href="{% url 'blog-home' %}"> <img src="/media/cherries.png" width=35px height="35" class="d-inline-block text-left align-text-top mr-2">Django Blog</a> 
-              <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span> -->
-              </button>
-              
-              <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                  <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
-                  <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
-                </div>
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav d-flex align-baseline">     
-                  {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
-                    <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                  {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                  {% endif %}
-                </div>
+    <header class="site-header mb-5">
+        <nav class="navbar animate navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #a865b5;">
+          <div class="container">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
+                  <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
+                  <span class="d-inline-block text-left align-text-top" style="font-size: 23px;" >Cherry</span>
+                </a>
               </div>
-            </div>
-          </nav>
-    </header>
+    
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarToggle">
+                  <div class="navbar-nav mr-auto">
+                      <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
+                      
+                      <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
+                  </div>
+                  <div class="navbar-nav d-flex align-baseline">
+                      {% if user.is_authenticated %}
+                      <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
+                      <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
+                      <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                      {% else %}
+                      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                      <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+        </nav>
+      </header>
     <br>
     <br>
     <br>
@@ -143,12 +148,12 @@
             <div class="col-md-4">
                 <div class="card shadow" style="border-color: #c38eb4;">
                     <img src="/media/creator_pics/Sujal.jpg" alt="Sujal Bhor">
-                    <h2>Sujal <br> Bhor</h2>
+                    <h2>Sujal Bhor</h2>
                     <p>Role: Fullstack</p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/bhorsujal5/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/sujal-bhor-7986b2252/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/person1" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/bhorsujal" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
@@ -161,43 +166,43 @@
                     <div class="social-icons">
                         <a href="https://www.instagram.com/atharvfakatkar/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/atharv-fakatkar-6a8a0727b/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/person2" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/atharvfakatkar" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card shadow" style="border-color: #c38eb4;">
                     <img src="/media/creator_pics/Avadhut.jpg" alt="Avadhut Giri">
-                    <h2>Avadhut <br> Giri</h2>
+                    <h2>Avadhut  Giri</h2>
                     <p>Role: Fullstack</p>
                     <div class="social-icons">
                         <a href="https://www.instagram.com/avadhut252/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/avadhut-giri-890263261/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/person1" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Royalty252" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2 ml-md-auto">
                 <div class="card shadow" style="border-color: #c38eb4;">
                     <img src="/media/creator_pics/Piyush.jpg" alt="Piyush Salve">
-                    <h2>Piyush <br> Salve</h2>
+                    <h2>Piyush  Salve</h2>
                     <p>Role: Frontend</p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/so._cheps/" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/sohan-chepe-824904259/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/person2" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.instagram.com/piyussalve/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/piyush-salve-b64a1a251/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 ml-md-auto">
                 <div class="card shadow" style="border-color: #c38eb4;">
                     <img src="/media/creator_pics/Sohan.jpg" alt="Sohan Chepe">
-                    <h2>Sohan <br> Chepe</h2>
+                    <h2>Sohan  Chepe</h2>
                     <p>Role: Designer</p>
                     <div class="social-icons">
                         <a href="https://www.instagram.com/so._cheps/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/sohan-chepe-824904259/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/person2" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/sohanchepe" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
