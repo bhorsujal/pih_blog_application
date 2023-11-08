@@ -1,9 +1,7 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<br>
-<br>
-    <div class="content-section">
+    <div class="content-section mt-5">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">

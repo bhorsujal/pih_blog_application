@@ -2,404 +2,402 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
+
 <head>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}">
 
 
 
-    <style>
-
-      @keyframes type-text {
-        from {
-          opacity: 0.25;
-        }
-
-        to {
-          opacity: 1;
-        }
+  <style>
+    @keyframes type-text {
+      from {
+        opacity: 0.25;
       }
 
-      body {
-          background-color: #fef8ff; 
-          background-image: url('/media/background.png');
-          
-          background-size: auto;  
-          background-repeat: no-repeat;
-          background-attachment: fixed;
+      to {
+        opacity: 1;
       }
+    }
 
-      .custom-container {
-        max-width: 1300px;
-        margin: 0 auto; 
-      }
+    body {
+      background-color: #fef8ff;
+      background-image: url('/media/background.png');
 
-      #category-section {
-    position: relative; /* Initial position */
-    width : 100%
-      }
+      background-size: auto;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
-#category-section.fixed {
-    position: fixed;
-    top: 100px;
-    transition: top 0.3s;
-}
+    .custom-container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
 
-      .side-bar {
-        padding: auto;
-        margin: 0 auto;
-      }
+    #category-section {
+      position: relative;
+      /* Initial position */
+      width: 100%
+    }
 
-      .btn:hover {
-        transform: translateY(-2px);
-      }
+    #category-section.fixed {
+      position: fixed;
+      top: 100px;
+      transition: top 0.3s;
+    }
 
-      .float-end {
-/*        object-position: centre right;*/
-        margin: auto;
-        justify-content: right;
-        max-height: 1000px;
-        height: auto;
-        width: auto;
-      }
-      
-      .content-section {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-color: #c38eb4;
-        opacity: 88%;
-      }
-      
-      /* :hover {
-        background-color: #ebf2f3;
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s;
-      } */
+    .side-bar {
+      padding: auto;
+      margin: 0 auto;
+    }
 
-      .list-group-item {
-        border-color: #c38eb4;
-      }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
-      .navbar-nav .nav-link:hover {
-        text-decoration: underline;
-      }
+    .float-end {
+      /*        object-position: centre right;*/
+      margin: auto;
+      justify-content: right;
+      max-height: 1000px;
+      height: auto;
+      width: auto;
+    }
 
-      .bg-banner {
-        background-color: #fff0e0;
-      }
+    .content-section {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-color: #c38eb4;
+      opacity: 88%;
+    }
 
-      .card {
-        opacity: 88%;
-      }
+    .list-group-item {
+      border-color: #c38eb4;
+    }
 
-      .card:hover {
-        background-color: #ebf2f3;
-        transition: transform 0.3s;
-      }
+    .navbar-nav .nav-link:hover {
+      text-decoration: underline;
+    }
 
-      .list-group-item:hover {
-        background-color: #ebf2f3;
-        transition: transform 0.3s;
-        cursor: pointer;
-      }
-      
-      hr {
-        height: 1px;
-        color: #123455;
-        background-color: #123455;
-        border: none;
-      }
+    .bg-banner {
+      background-color: #fff0e0;
+    }
 
-      .typing-text {
-        animation: type-text 0.5s ease-in-out;
-      }
+    .card {
+      opacity: 88%;
+    }
 
+    .card:hover {
+      background-color: #ebf2f3;
+      transition: transform 0.3s;
+    }
+
+    .list-group-item:hover {
+      background-color: #ebf2f3;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    hr {
+      height: 1px;
+      color: #123455;
+      background-color: #123455;
+      border: none;
+    }
+
+    .typing-text {
+      animation: type-text 0.5s ease-in-out;
+    }
   </style>
 
-    {% if title %}
-        <title>Cherry - {{ title }}</title>
-    {% else %}
-        <title>Cherry</title>
-    {% endif %}
+  {% if title %}
+  <title>Cherry - {{ title }}</title>
+  {% else %}
+  <title>Cherry</title>
+  {% endif %}
 </head>
+
 <body>
 
-    <header class="site-header mb-5">
-      <nav class="navbar animate navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top" style="background-color: #a865b5;">
-        <div class="container">
-          <div class="d-flex align-items-center">
-            <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
-              <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2" alt="Cherry Logo">
-              <span class="d-inline-block text-left align-text-top" style="font-size: 23px;" >Cherry</span>
-            </a>
-          </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
-                    <div class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle nav-item nav-link lead" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Categories
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                                {% for category in categories %}
-                                <li><a class="dropdown-item" href="{% url 'category-posts' category.id %}">{{ category.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    </div>
-                    <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
-                </div>
-                <div class="navbar-nav d-flex align-baseline">
-                  <form method="get" action="{% url 'search' %}">
-                    <input type="text" name="query" class="form-control" placeholder="Search">
-                </form>
-                
-                  
-                </div>
-                <div class="navbar-nav d-flex align-baseline">
-                    {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
-                    <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-      </nav>
-    
-            
-    </header>
-    <main role="main" class="container custom-container">
-
-      <div class="row">
-        {% if request.path == '/' %}
-          {% if most_liked_post %}
-          <div class="p-4 p-md-4 mt-5 mb-5 rounded shadow-lg bg-banner">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="{{ most_liked_post.image.url }}" class="img-fluid rounded typing-text" alt="{{ most_liked_post.title }}">
-                </div>
-                <div class="col-md-6 typing-text">
-                    <h1 class="display-4">{{ most_liked_post.title }}</h1>
-                    <p><i>(Most Liked)</i></p>
-                    <p class="lead my-3">{{ most_liked_post.content|truncatewords:15 }}</p>
-                    <p class="lead mb-0">
-                        <a href="{% url 'post-detail' most_liked_post.id %}" class="text-body-emphasis fw-bold" style="color: #000000;">Continue reading...</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-          {% endif %}            
-        {% endif %}
-
-        <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-            {%endfor%}
-          {% endif %}
-          
-<style>
-  .border-subtle {
-    border: 1px solid #c38eb4;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .border-subtle:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  }
-
-  .card {
-    opacity: 88%;
-  }
-
-  .card:hover {
-    background-color: #ebf2f3;
-    transition: transform 0.3s;
-  }
-  
-  .border:hover .card-footer {
-    opacity: 1;
-  }
-
-  .icon-container {
-    width: 50px; 
-    height: 50px; 
-    overflow: hidden; /* Hide overflowing content (for circular shape) */
-    border-radius: 50%; /* Make the container circular */
-    border: 2px solid #ccc; /* Optional: Add a border to the circular icon */
-  }
-
-  .circular-icon {
-      width: 100%; /* Make sure the image takes up 100% of the circular container */
-      height: auto; /* Maintain the aspect ratio of the image */
-      border-radius: 50%; /* Make the image is circular */
-  }
-</style>
-
-<h1 class="mt-5">Search Results</h1>
-<hr>
-
-<!-- <div class="row">
-  {% for post in results %}
-    <div class="col-md-15 mb-4">
-      <div class="media content-section">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-          </div>
-          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content|safe|truncatewords:50 }}</p>
-        </div>
-      </div>
-    </div>
-  {% empty %}
-    <p>No results found.</p>
-  {% endfor %}
-</div> -->
-
-<div class="row g-4">
-  {% for post in results %}
-    <div class="col-md-12 g-3 mb-4" style="width: auto;">
-      <div class="card border-subtle h-100 mt-3 mb-3 shadow" style="border-color: #c38eb4;">
-        <div class="card-body">
-          <a class="card-title lead text-dark" href="{% url 'post-detail' post.id %}">
-            <div class="d-flex align-items-center"> <!-- Use Bootstrap flex classes to align content vertically -->
-              <div class="flex-grow-1">
-                {{ post.title }}
-                <br>
-                <br>
-                <figcaption class="blockquote-footer text-body-secondary text-right" style="display: flex; justify-content: left; align-items: left;"> 
-                  <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-                </figcaption>
-                <p class="card-text mt-3">{{ post.content|truncatewords:50 }}</p>
-                <div class="like-align">
-                  <!-- Add your like button here -->
-                </div>
-              </div>
-              <div class="rectangular-icon-container ml-3"> <!-- Add margin to the image container -->
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 200px; max-height: 220px;"> <!-- Adjust the max-width and max-height as needed -->
-              </div>
-            </div>
+  <header class="site-header mb-5">
+    <nav class="navbar animate navbar-expand-md navbar-dark border-bottom border-body shadow-lg fixed-top"
+      style="background-color: #a865b5;">
+      <div class="container">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand mr-15" href="{% url 'blog-home' %}">
+            <img src="/media/cherries.png" width="35" height="35" class="d-inline-block text-left align-text-top mr-2"
+              alt="Cherry Logo">
+            <span class="d-inline-block text-left align-text-top" style="font-size: 23px;">Cherry</span>
           </a>
         </div>
-        <div class="card-footer d-flex justify-content-between" style="background-color: #cddee5; opacity: 0.7;">
-          <span class="badge badge-secondary ml-2">{{ post.category }}</span> <!-- Add the category tag -->
-          <small class="text-body-secondary">{{ post.date_posted|date:"F d, Y" }}</small>
-          <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
-        </div>
-      </div>
-    </div>
-    {% if forloop.counter|divisibleby:2 and not forloop.last %}
-      </div>
-        <div class="row g-4">
-    {% endif %}
-    {% empty %}
-    <p>No results found.</p>
-  {% endfor %}
-</div>
-        </div>
-        <div class="col-md-4">
-
-          <div class="fixed-sidebar mt-5 ml-5" style="padding: auto;">
-            <div class="content-section" style="opacity: 88%;">
-              <h3>Glance</h3>
-              <p class='text-muted'>Your interests, the way you like!
-                <ul class="list-group">
-                  <li class="list-group-item list-group-item-light dropdown">
-                    <button class="btn  dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%; text-align: justify;">
-                      Sort by date posted
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-light">
-                      <li><a class="dropdown-item" href="#">Newest first</a></li>
-                      <li><a class="dropdown-item" href="#">Oldest first</a></li>
-                    </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle"
+          aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link lead" href="{% url 'blog-home' %}">Home</a>
+            <div class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-item nav-link lead" href="#" id="categoriesDropdown"
+                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                  {% for category in categories %}
+                  <li><a class="dropdown-item" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
                   </li>
-                  <li class="list-group-item list-group-item-light text-muted" style="text-align: justify;"><a class="text-muted col" href="#">Sort by Likes</a></li>
-                  <li class="list-group-item list-group-item-light text-muted"><a class="text-muted col" href="#" style="text-align: justify;">Sort Alphabetically</a></li>
+                  {% endfor %}
                 </ul>
-              </p>
+              </li>
             </div>
-            <div id="category-section">
-            <div class="content-section" style="opacity: 88%;">
-                <h3>Categories</h3>
-                <p class='text-muted'>Discover more of what matters to you
-                    <ul class="list-group">
-                        {% for category in categories %}
-                            <li class="list-group-item list-group-item-light text-muted" style="text-align: justify">
-                                <a class="text-muted col" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
-                            </li>
-                        {% endfor %}
-              </div>
+            <a class="nav-item nav-link lead" href="{% url 'blog-about' %}">About Us</a>
+          </div>
+          <div class="navbar-nav d-flex align-baseline">
+            <form method="get" action="{% url 'search' %}">
+              <input type="text" name="query" class="form-control" placeholder="Search">
+            </form>
 
-              </div>  
-            </div>
-                
-      
-    </main>
+          </div>
+          <div class="navbar-nav d-flex align-baseline">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">Write Post</a>
+            <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
 
-    <!-- Optional JavaScript -->
-    <script>
-      // Get the category section element
-      var categorySection = document.getElementById("category-section");
-      var glanceSection = document.querySelector(".content-section:first-child"); // Assuming it's the first child
-  
-      // Function to check the scroll position and apply the fixed class
-      function checkScroll() {
-          var glanceSectionRect = glanceSection.getBoundingClientRect();
-          var categorySectionRect = categorySection.getBoundingClientRect();
-          
-          var topOffset = 100; // Adjust this value as needed
-  
-          if (glanceSectionRect.bottom <= topOffset) {
-              categorySection.classList.add("fixed");
-              categorySection.style.top = topOffset + "px";
-              categorySection.style.width = categorySectionRect.width + "px"; // Set explicit width
-          } else {
-              categorySection.classList.remove("fixed");
-              categorySection.style.top = ""; // Reset top to allow normal document flow
-              categorySection.style.width = ""; // Reset width to its original state
+
+  </header>
+  <main role="main" class="container custom-container">
+
+    <div class="row">
+      {% if request.path == '/' %}
+      {% if most_liked_post %}
+      <div class="p-4 p-md-4 mt-5 mb-5 rounded shadow-lg bg-banner">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="{{ most_liked_post.image.url }}" class="img-fluid rounded typing-text"
+              alt="{{ most_liked_post.title }}">
+          </div>
+          <div class="col-md-6 typing-text">
+            <h1 class="display-4">{{ most_liked_post.title }}</h1>
+            <p><i>(Most Liked)</i></p>
+            <p class="lead my-3">{{ most_liked_post.content|truncatewords:15 }}</p>
+            <p class="lead mb-0">
+              <a href="{% url 'post-detail' most_liked_post.id %}" class="text-body-emphasis fw-bold"
+                style="color: #000000;">Continue reading...</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+      {% endif %}
+
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {%endfor%}
+        {% endif %}
+
+        <style>
+          .border-subtle {
+            border: 1px solid #c38eb4;
+            transition: transform 0.3s, box-shadow 0.3s;
           }
+
+          .border-subtle:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+          }
+
+          .card {
+            opacity: 88%;
+          }
+
+          .card:hover {
+            background-color: #ebf2f3;
+            transition: transform 0.3s;
+          }
+
+          .border:hover .card-footer {
+            opacity: 1;
+          }
+
+          .icon-container {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            /* Hide overflowing content (for circular shape) */
+            border-radius: 50%;
+            /* Make the container circular */
+            border: 2px solid #ccc;
+            /* Optional: Add a border to the circular icon */
+          }
+
+          .circular-icon {
+            width: 100%;
+            /* Make sure the image takes up 100% of the circular container */
+            height: auto;
+            /* Maintain the aspect ratio of the image */
+            border-radius: 50%;
+            /* Make the image is circular */
+          }
+        </style>
+
+        <h1 class="mt-5">Search Results</h1>
+        <hr>
+
+        <div class="row g-4">
+          {% for post in results %}
+          <div class="col-md-12 g-3 mb-4" style="width: auto;">
+            <div class="card border-subtle h-100 mt-3 mb-3 shadow" style="border-color: #c38eb4;">
+              <div class="card-body">
+                <a class="card-title lead text-dark" href="{% url 'post-detail' post.id %}">
+                  <div class="d-flex align-items-center">
+                    <!-- Use Bootstrap flex classes to align content vertically -->
+                    <div class="flex-grow-1">
+                      {{ post.title }}
+                      <br>
+                      <br>
+                      <figcaption class="blockquote-footer text-body-secondary text-right"
+                        style="display: flex; justify-content: left; align-items: left;">
+                        <a class="text-muted" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                      </figcaption>
+                      <p class="card-text mt-3">{{ post.content|truncatewords:50 }}</p>
+                      <div class="like-align">
+                        <!-- Add your like button here -->
+                      </div>
+                    </div>
+                    <div class="rectangular-icon-container ml-3"> <!-- Add margin to the image container -->
+                      <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                        style="max-width: 200px; max-height: 220px;">
+                      <!-- Adjust the max-width and max-height as needed -->
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="card-footer d-flex justify-content-between" style="background-color: #cddee5; opacity: 0.7;">
+                <span class="badge badge-secondary ml-2">{{ post.category }}</span> <!-- Add the category tag -->
+                <small class="text-body-secondary">{{ post.date_posted|date:"F d, Y" }}</small>
+                <small class="text-body-secondary">{{ post.likes.count }} Likes</small>
+              </div>
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:2 and not forloop.last %}
+        </div>
+        <div class="row g-4">
+          {% endif %}
+          {% empty %}
+          <p>No results found.</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <div class="fixed-sidebar mt-5 ml-5" style="padding: auto;">
+          <div class="content-section" style="opacity: 88%;">
+            <h3>Glance</h3>
+            <p class='text-muted'>Your interests, the way you like!
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light dropdown">
+                <button class="btn  dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-expanded="false"
+                  style="width:100%; text-align: justify;">
+                  Sort by date posted
+                </button>
+                <ul class="dropdown-menu dropdown-menu-light">
+                  <li><a class="dropdown-item" href="#">Newest first</a></li>
+                  <li><a class="dropdown-item" href="#">Oldest first</a></li>
+                </ul>
+              </li>
+              <li class="list-group-item list-group-item-light text-muted" style="text-align: justify;"><a
+                  class="text-muted col" href="#">Sort by Likes</a></li>
+              <li class="list-group-item list-group-item-light text-muted"><a class="text-muted col" href="#"
+                  style="text-align: justify;">Sort Alphabetically</a></li>
+            </ul>
+            </p>
+          </div>
+          <div id="category-section">
+            <div class="content-section" style="opacity: 88%;">
+              <h3>Categories</h3>
+              <p class='text-muted'>Discover more of what matters to you
+              <ul class="list-group">
+                {% for category in categories %}
+                <li class="list-group-item list-group-item-light text-muted" style="text-align: justify">
+                  <a class="text-muted col" href="{% url 'category-posts' category.id %}">{{ category.name }}</a>
+                </li>
+                {% endfor %}
+            </div>
+
+          </div>
+        </div>
+
+
+  </main>
+
+  <!-- Optional JavaScript -->
+  <script>
+    // Get the category section element
+    var categorySection = document.getElementById("category-section");
+    var glanceSection = document.querySelector(".content-section:first-child"); // Assuming it's the first child
+
+    // Function to check the scroll position and apply the fixed class
+    function checkScroll() {
+      var glanceSectionRect = glanceSection.getBoundingClientRect();
+      var categorySectionRect = categorySection.getBoundingClientRect();
+
+      var topOffset = 100; // Adjust this value as needed
+
+      if (glanceSectionRect.bottom <= topOffset) {
+        categorySection.classList.add("fixed");
+        categorySection.style.top = topOffset + "px";
+        categorySection.style.width = categorySectionRect.width + "px"; // Set explicit width
+      } else {
+        categorySection.classList.remove("fixed");
+        categorySection.style.top = ""; // Reset top to allow normal document flow
+        categorySection.style.width = ""; // Reset width to its original state
       }
-  
-      // Listen for the scroll event
-      window.addEventListener("scroll", checkScroll);
-  
-      // Initially, check the scroll position to apply the fixed class if needed
-      checkScroll();
+    }
+
+    // Listen for the scroll event
+    window.addEventListener("scroll", checkScroll);
+
+    // Initially, check the scroll position to apply the fixed class if needed
+    checkScroll();
   </script>
-  
+
   <!-- Optional JavaScript libraries, jQuery, Popper.js, and Bootstrap JS -->
-  
-  </body>
-  </html>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
+</html>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
 </html>
