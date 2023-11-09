@@ -252,7 +252,7 @@
                 </div>
               </div>
               <p class="article-content">{{ object.content|linebreaksbr }}</p>
-              <form method="post" action="{% url 'like' post.pk %}">
+              <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="d-flex justify-content-between">
                   <button type="submit" class="btn btn-link col">

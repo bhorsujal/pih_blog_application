@@ -19,6 +19,7 @@ from django.views import View
 from django.http import HttpResponseBadRequest
 from django.db.models import Count
 from .forms import SearchForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # def home(request):
@@ -91,7 +92,7 @@ class PostsByCategoryView(PostListView):
         return queryset
 
 
-class LikeView(LoginRequiredMixin,View):
+class LikeView(LoginRequiredMixin, View):
     def post(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
         if post.likes.filter(id=request.user.id).exists():
